@@ -260,3 +260,60 @@ for f in glob("127.0.0.1:8*"):
 
 ################################################################################
 
+
+""" Hello world utilizzando una piccola rete neurale """
+try:
+    import numpy as np
+except Exception as e:
+    raise e # TODO
+
+def nonlin(x, deriv=False):
+    if deriv is True:
+        return x * (1 - x)
+    return 1 / (1 + np.exp(-x))
+
+# Inputs
+x = np.array([[1, 0, 0, 1, 0, 0, 0],
+              [1, 1, 0, 0, 1, 0, 1],
+              [1, 1, 0, 1, 1, 0, 0],
+              [1, 1, 0, 1, 1, 0, 0],
+              [1, 1, 0, 1, 1, 1, 1],
+              [0, 1, 0, 0, 0, 0, 0],
+              [1, 1, 1, 0, 1, 1, 1],
+              [1, 1, 0, 1, 1, 1, 1],
+              [1, 1, 1, 0, 0, 1, 0],
+              [1, 1, 0, 1, 1, 0, 0],
+              [1, 1, 0, 0, 1, 0, 0],
+              [0, 1, 0, 0, 0, 0, 1],
+              [0, 0, 0, 1, 0, 1, 0]])
+
+# Expected outputs
+y = np.array([[ord(c) / 150] for c in 'Hello world!\n'])
+
+# Synapses
+syn0 = 2 * np.random.random((7, 4)) - 1
+syn1 = 2 * np.random.random((4, 1)) - 1
+
+# Training
+for j in range(2500):
+    # Layers
+    l0 = x
+    l1 = nonlin(np.dot(l0, syn0))
+    l2 = nonlin(np.dot(l1, syn1))
+    
+    # Backpropagation
+    l2_error = y - l2
+
+    # Calculate deltas
+    l2_delta = l2_error * nonlin(l2, deriv=True)
+    l1_error = l2_delta.dot(syn1.T)
+    l1_delta = l1_error * nonlin(l1, deriv=True)
+    
+    # Update synapses
+    syn1 += l1.T.dot(l2_delta)
+    syn0 += l0.T.dot(l1_delta)
+
+
+for l in l2 * 150:
+    print(chr(int(round(l[0]))), end='')
+
