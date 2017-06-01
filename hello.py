@@ -1,4 +1,4 @@
-""" Diversi modi di stampare "Hello world!\n" in Python 3.
+""" Diversi modi di stampare "Hello world!\n" in Python.
     Qualche tecnica richiede moduli non presenti nella libreria standard (numpy)
     che se non sono installati vengono '''''''emulati'''''''.
     
@@ -47,6 +47,17 @@ sys.stdout.write("Hello world!\n")
 """ Esecuzione dinamica di codice sorgente """
 
 exec('print("Hello world!")')
+
+
+################################################################################
+
+
+""" A quanto pare Python 2 supporta di default l'encoding rot-13 del sorgente
+    info: https://en.wikipedia.org/wiki/ROT13 """
+
+import os
+
+os.system("""python2 -c '# -*- coding: rot13 -*- \ncevag(h"Uryyb jbeyq!")'""")
 
 
 ################################################################################
