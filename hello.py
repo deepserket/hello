@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 """ Diversi modi di stampare "Hello world!\n" in Python.
     Qualche tecnica richiede moduli non presenti nella libreria standard (numpy)
     che se non sono installati vengono '''''''emulati'''''''.
