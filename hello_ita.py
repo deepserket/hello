@@ -95,17 +95,17 @@ except ModuleNotFoundError: # Per favore scarica anaconda, ha tanti bei giochi
         def __init__(self, arr):
             self.arr = arr
             
-        def array(arr):
-            return np(arr)
-            
         def __add__(self, other):
             return np([a + b for a,b in zip(self.arr, other.arr)])
-            
-        def concatenate(elems):
-            return list(chain(*elems))
         
         def __iter__(self):
             return iter(self.arr)
+            
+        def array(arr):
+            return np(arr)
+            
+        def concatenate(elems):
+            return list(chain(*elems))
 
 
 hello = np.array([ 72, 101, 108, 108, 111,  32])
