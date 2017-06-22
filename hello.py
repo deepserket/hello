@@ -1,20 +1,21 @@
 # -*- coding: utf8 -*-
-""" Diversi modi di stampare "Hello world!\n" in Python.
-    Qualche tecnica richiede moduli non presenti nella libreria standard (numpy)
-    che se non sono installati vengono '''''''emulati'''''''.
-    
-    So che alcuni moduli vengono importati più volte, è semplicemente per far
-    si che tutto il codice di ogni Hello world stia all'interno delle righe 
-    commentate ####...####.
-    
-    Testato su Python 3.6.0 | Anaconda custom (64-bit) | su Ubuntu 16.04 LTS 
-    
-    ---------------------------------ATTENZIONE---------------------------------
-    Accertarsi di non avere file importanti che risiedono nella directory in cui
-    questo sorgente viene eseguito che hanno nome iniziante per "127.0.0.1:8"
-    perchè verranno eliminati.
-    Nel caso fosse troppo tardi: <<< RTFM >>>
-    """
+
+"""Diversi modi di stampare "Hello world!\n" in Python.
+
+Qualche tecnica richiede moduli non presenti nella libreria standard (numpy) che
+se non sono installati vengono "emulati".
+   
+So che alcuni moduli vengono importati più volte, è semplicemente per far si che
+tutto il codice di ogni Hello world stia all'interno delle righe commentate #..#
+
+Testato su Python 3.6.0 | Anaconda custom (64-bit) | su Ubuntu 16.04 LTS 
+  
+-----------------------------------ATTENZIONE-----------------------------------
+Accertarsi di non avere file importanti che risiedono nella directory in cui
+questo sorgente viene eseguito che hanno nome iniziante per "127.0.0.1:8" perchè
+verranno eliminati.
+Nel caso fosse troppo tardi: <<< RTFM >>>
+"""
 
 ################################################################################
 
@@ -53,8 +54,9 @@ exec('print("Hello world!")')
 ################################################################################
 
 
-""" A quanto pare Python 2 supporta di default l'encoding rot-13 del sorgente
-    info: https://en.wikipedia.org/wiki/ROT13 """
+"""A quanto pare Python 2 supporta di default l'encoding rot-13 del sorgente
+info: https://en.wikipedia.org/wiki/ROT13
+"""
 
 import os
 
@@ -64,8 +66,9 @@ os.system("""python2 -c '# -*- coding: rot13 -*- \ncevag(h"Uryyb jbeyq!")'""")
 ################################################################################
 
 
-""" Con una chiamata di sistema si fa eseguire ad un interprete python 
-    l'istruzione print('Hello world!'). """
+"""Con una chiamata di sistema si fa eseguire ad un interprete python
+l'istruzione print('Hello world!').
+"""
 
 import os
 
@@ -75,12 +78,13 @@ os.system("python3 -c\"print(\\\"Hello world!\\\")\"")
 ################################################################################
 
 
-""" Ricorda l'Hello world sulle architetture CUDA: https://www.pdc.kth.se/resources/computers/historical-computers/zorn/how-to/how-to-compile-and-run-a-simple-cuda-hello-world
-    L'array hello contiene i codici ascii di 'Hello '.
-    L'array world contiene la differenza tra l' N-esimo codice dell'array hello
-    e l' N-esimo codice ascii di 'world!'.
-    Per ottenere i codici della stringa 'world!' basta sommare (non concatenare)
-    gli array hello e world. """
+"""Ricorda l'Hello world sulle architetture CUDA: https://www.pdc.kth.se/resources/computers/historical-computers/zorn/how-to/how-to-compile-and-run-a-simple-cuda-hello-world
+L'array hello contiene i codici ascii di 'Hello '.
+L'array world contiene la differenza tra l' N-esimo codice dell'array hello e
+l' N-esimo codice ascii di 'world!'.
+Per ottenere i codici della stringa 'world!' basta sommare (non concatenare) gli
+array hello e world.
+"""
 
 try:
     import numpy as np
@@ -116,21 +120,20 @@ print() # Newline...
 ################################################################################
 
 
-
-""" Viene creata una metaclasse Spam dove viene sovrascritto il metodo __call__
-    Poi viene creata la metaclasse Egg che viene istanziata dal tipo della 
-    metaclasse Spam, che è type.
-    Dopo viene creata l'istanza World dalla metaclasse Egg, equivalente a:
+"""Viene creata una metaclasse Spam dove viene sovrascritto il metodo __call__,
+poi viene creata la metaclasse Egg che viene istanziata dal tipo della
+metaclasse Spam, che è type.
+Dopo viene creata l'istanza world dalla metaclasse Egg, equivalente a:
     
-world = type(Egg).__call__(Egg, 'world', (), {...})
+    >>> world = type(Egg).__call__(Egg, 'world', (), {...})
 
-    Ma visto che la metaclasse Egg è un'istanza della metaclasse Spam type(Egg)
-    restituisce la metaclasse Spam, ovvero:
+Ma visto che la metaclasse Egg è un'istanza della metaclasse Spam type(Egg)
+restituisce la metaclasse Spam, ovvero:
 
-world = Spam.__call__(Egg, 'world', (), {...})
+    >>> world = Spam.__call__(Egg, 'world', (), {...})
 
-    Quindi viene stampato l'Hello world, e visto che il metodo __call__ 
-    esplicitamente non ritorna nulla la variabile World è uguale a None.
+Quindi viene stampato l'Hello world, e visto che il metodo __call__
+esplicitamente non ritorna nulla la variabile World è uguale a None.
 """
 
 class Spam(type):
@@ -146,13 +149,13 @@ class world(metaclass=Egg):
     pass
 
 
-
 ################################################################################
 
 
-""" La variabile code contiene l'Hello world in Brainfuck: https://docs.google.com/document/d/1M51AYmDR1Q9UBsoTrGysvuzar2_Hx69Hz14tsQXWV6M/mobilebasic
-    Il restante codice è semplicemente un interprete che, appunto, interpreta il
-    codice dentro la variabile code. """
+"""La variabile code contiene l'Hello world in Brainfuck: https://docs.google.com/document/d/1M51AYmDR1Q9UBsoTrGysvuzar2_Hx69Hz14tsQXWV6M/mobilebasic
+Il restante codice è semplicemente un interprete che, appunto, interpreta il
+codice dentro la variabile code.
+"""
 
 code = """++++++++[>++++[>++>+++>+++>+<<<<-]
           >+>+>->>+[<]<-]>>.>---.+++++++..+++.
@@ -203,12 +206,13 @@ while index < len(code):
 ################################################################################
 
 
-""" Vengono istanziati 128 socket che fungono da server in ascolto sulle porte
-    di localhost dalla 8000 alla 8127, ogni porta mappa il carattere ascii con
-    indice pari alle ultime tre cifre.
-    Vengono istanziati altrettanti host che, inviando segnali ai server,
-    permettono l'output del rispettivo carattere mappato.
-    I segnali vengono inviati in ordine tale da stampare Hello World"""
+"""Vengono istanziati 128 socket che fungono da server in ascolto sulle porte di
+localhost dalla 8000 alla 8127, ogni porta mappa il carattere ascii con indice
+pari alle ultime tre cifre.
+Vengono istanziati altrettanti host che, inviando segnali ai server, permettono
+l'output del rispettivo carattere mappato.
+I segnali vengono inviati in ordine tale da stampare Hello World.
+"""
 
 import socket
 import threading
@@ -274,6 +278,7 @@ for f in glob("127.0.0.1:8*"):
 
 
 """ Hello world utilizzando una piccola rete neurale """
+
 try:
     import numpy as np
 except Exception as e:
@@ -284,7 +289,7 @@ def nonlin(x, deriv=False):
         return x * (1 - x)
     return 1 / (1 + np.exp(-x))
 
-# Inputs
+# Input
 x = np.array([[1, 0, 0, 1, 0, 0, 0],
               [1, 1, 0, 0, 1, 0, 1],
               [1, 1, 0, 1, 1, 0, 0],
@@ -299,33 +304,32 @@ x = np.array([[1, 0, 0, 1, 0, 0, 0],
               [0, 1, 0, 0, 0, 0, 1],
               [0, 0, 0, 1, 0, 1, 0]])
 
-# Expected outputs
+# Output attesi
 y = np.array([[ord(c) / 150] for c in 'Hello world!\n'])
 
-# Synapses
+# Sinapsi
 syn0 = 2 * np.random.random((7, 4)) - 1
 syn1 = 2 * np.random.random((4, 1)) - 1
 
-# Training
+# Training delle sinapsi
 for j in range(2500):
     # Layers
     l0 = x
     l1 = nonlin(np.dot(l0, syn0))
     l2 = nonlin(np.dot(l1, syn1))
     
-    # Backpropagation
+    # Retropropagazione
     l2_error = y - l2
 
-    # Calculate deltas
+    # Calcolo dei delta
     l2_delta = l2_error * nonlin(l2, deriv=True)
     l1_error = l2_delta.dot(syn1.T)
     l1_delta = l1_error * nonlin(l1, deriv=True)
     
-    # Update synapses
+    # Update delle sinapsi
     syn1 += l1.T.dot(l2_delta)
     syn0 += l0.T.dot(l1_delta)
 
 
 for l in l2 * 150:
     print(chr(int(round(l[0]))), end='')
-
