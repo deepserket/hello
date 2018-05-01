@@ -339,3 +339,129 @@ for j in range(2500):
 for c in l2 * 150:
     print(chr(int(round(c[0]))), end='')
 
+
+################################################################################
+
+
+""" Hello World using linear algebra and polynomial curve fitting https://www.reddit.com/r/ProgrammerHumor/comments/8ehlev/hello_world_using_linear_algebra_and_polynomial/ """
+
+def f(x):
+    return int(round(
+        72.0
+        - 5601.5239800168910000 * x
+        + 15839.254309410564000 * x ** 2
+        - 17990.084740472780000 * x ** 3
+        + 11078.251208553862000 * x ** 4
+        - 4157.1945722233930000 * x ** 5
+        + 1004.3607769364212000 * x ** 6
+        - 159.60952876624610000 * x ** 7
+        + 16.592823896982345000 * x ** 8
+        - 1.0862681759576835000 * x ** 9
+        + 0.0406327155961238650 * x ** 10
+        - 0.0006620771128961875 * x ** 11
+    ))
+
+print(''.join(chr(f(i)) for i in range(12)))
+
+
+################################################################################
+
+
+""" Bruteforcing Hello world with genetic algorithms 
+Translated from here: https://github.com/frogamic/GeneticHelloWorld.js """
+
+import math
+import random
+from itertools import count
+
+MUTATE_RATE = 0.01
+BREED_RATE = 0.75
+POPULATION_SIZE = 1000
+TARGET = "Hello world!"
+
+def generate_character():
+    return chr(random.randint(32, 126))
+
+def select_parent(elders, total_score):
+    selection = random.random() * total_score
+    sum_ = 0
+    for e in elders:
+        sum_ += check_fitness(e) # TODO we can use a class that save the score, without computing each time
+        if selection <= sum_:
+            return e
+
+def generate_population():
+    return [''.join(generate_character() for char in TARGET)
+            for individual in range(POPULATION_SIZE)]
+
+def check_fitness(x):
+    return sum(c1 == c2 for c1, c2 in zip(x, TARGET))
+
+def breed(p1, p2):
+    c = ''
+    for i, _ in enumerate(TARGET):
+        if random.random() < MUTATE_RATE:
+            c += generate_character()
+        else:
+            if random.random() < 0.5:
+                c += p1[i]
+            else:
+                c += p2[i]
+    return c
+
+
+population = generate_population()
+
+for generation in count(1):
+    results = sorted(population, key=check_fitness, reverse=True)
+    if results[0] != TARGET:
+        elders = results[:int(POPULATION_SIZE * (1 - BREED_RATE))]
+        population = elders
+        total_score = sum(map(check_fitness, population))
+        for _ in range(int(POPULATION_SIZE * (1 - BREED_RATE))):
+            population.append(breed(select_parent(elders, total_score),
+                                    select_parent(elders, total_score)))
+    else:
+        print(results[0])
+        break
+
+
+################################################################################
+
+
+""" Hello World! using the discrete Fourier transform https://www.reddit.com/r/ProgrammerHumor/comments/8emakg/i_see_your_hello_world_using_linear_algebra_and/ """
+
+import warnings
+
+from numpy import exp, pi
+
+warnings.filterwarnings('ignore')
+
+coefficients = [
+  + 1085.00000000 +   0.00000000j,
+  -   31.29422863 +   1.16987298j,
+  -  135.00000000 - 136.83201380j,
+  +    2.00000000 +  11.00000000j,
+  +   20.00000000 - 117.77945491j, 
+  -   15.70577137 +   9.83012702j,
+  +   99.00000000 +   0.00000000j, 
+  -   15.70577137 -   9.83012702j,
+  +   20.00000000 + 117.77945491j,
+  +    2.00000000 -  11.00000000j,
+  -  135.00000000 + 136.83201380j,
+  -   31.29422863 -   1.16987298j,
+  ]
+       
+message = ""
+for n in range(12):
+  message += chr(round(
+    sum([
+      coefficients[k]*exp(2j*pi*k*n/12)
+        for k in range(12)
+      ])
+    / 12
+    ))
+
+print(message)
+
+################################################################################
