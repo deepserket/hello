@@ -368,7 +368,7 @@ print(''.join(chr(f(i)) for i in range(12)))
 
 
 """ Bruteforcing Hello world with genetic algorithms 
-Translated from here: https://github.com/frogamic/GeneticHelloWorld.js """
+Translated from here: https://github.com/frogamic/GeneticHelloWorldjs """
 
 import math
 import random
