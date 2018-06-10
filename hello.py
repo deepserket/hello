@@ -465,3 +465,14 @@ for n in range(12):
 print(message)
 
 ################################################################################
+
+
+""" os.fork() return two int, 0 to the child and the child's PID to the parent"""
+
+import os
+import sys
+
+if os.fork():
+    sys.stdout.write('Hello ')
+else:
+    sys.stdout.write('world!\n')
