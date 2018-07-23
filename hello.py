@@ -476,3 +476,9 @@ if os.fork():
     sys.stdout.write('Hello ')
 else:
     sys.stdout.write('world!\n')
+
+################################################################################
+
+""" why not? "
+
+input("Hello world!\n")
